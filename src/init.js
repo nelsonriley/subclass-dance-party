@@ -15,9 +15,20 @@ $(document).ready(function(){
      * A new object of the given type will be created and added
      * to the stage.
      */
+     // this is the button clicked
+     // data gets the data-dancer-maker-funtion-name attribute on the button
+     // so danceMakerFunctionName is a string
     var dancerMakerFunctionName = $(this).data("dancer-maker-function-name");
 
     // get the maker function for the kind of dancer we're supposed to make
+      //console.log(window);
+      //the window object has access to:
+        // all functions in the global scope
+        // $, jQuery
+        // document / body / childnodes
+        // localStorge
+        // screen / availHeight + availWidth
+        // lots provided by webkit: speechRecognition, SVG handlers
     var dancerMakerFunction = window[dancerMakerFunctionName];
 
     // make a dancer with a random position
@@ -27,10 +38,34 @@ $(document).ready(function(){
       $("body").width() * Math.random(),
       Math.random() * 1000
     );
-    //dancers.push(dancer);
+
     $('body').append(dancer.$node);
 
+    window.dancers.push(dancer);
 
   });
+
+  $(".lineUpButton").on("click", function(event) {
+
+    var dancers = window.dancers;
+    for (var i = 0 ; i < dancers.length ; i++) {
+      var left = $("body").width() * Math.random();
+      var top = 100;
+      dancers[i].setPosition(top, left);
+    };
+
+    // console.log($(".winky"));
+
+  });
+
+  // $(".winky").hover(
+  //   function(event) {
+  //     console.log("hovering");
+  //     $(this).addClass( "hover" );
+  //   }, function(event) {
+  //     $(this).removeClass( "hover" );
+  //   }
+  // );
+
 });
 
