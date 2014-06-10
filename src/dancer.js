@@ -2,7 +2,8 @@
 var makeDancer = function(top, left, timeBetweenSteps){
   // use jQuery to create an HTML <span> tag
   this.timeBetweenSteps = timeBetweenSteps;
-
+  this.top = top;
+  this.left = left;
   this.$node = $('<span class="this"></span>');//
   this.step();
   // now that we have defined the this object, we can start setting up important parts of it by calling the methods we wrote
@@ -12,10 +13,11 @@ var makeDancer = function(top, left, timeBetweenSteps){
 
 makeDancer.prototype.step = function(){
   // the basic this doesn't do anything interesting at all on each step,
-  // it just schedules the next step
-  //var timey = setTimeout.bind(this);
+  // it just schedules the next step//setTimeout.bind(this, makeBlinkyDancer);
   //timey(this.step, this.timeBetweenSteps);
-  setTimeout(this.step, this.timeBetween);
+  //setTimeout(makeBlinkyDancer.prototype.step, 250);//this.timeBetweenSteps);
+  var blinkyStep = this.step.bind(this);
+  setTimeout(blinkyStep, this.timeBetweenSteps);
 };
 
 makeDancer.prototype.setPosition = function(top, left){
