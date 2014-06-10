@@ -52,10 +52,53 @@ $(document).ready(function(){
       var left = $("body").width() * Math.random();
       var top = 100;
       dancers[i].setPosition(top, left);
-    };
+    }
 
-    // console.log($(".winky"));
+  });
 
+  $(".taseNeighborButton").on("click", function() {
+    findNeighbor(window.dancers[0]);
+  });
+
+  var findNeighbor = function(dancer) {
+    var dancer = dancer.$node;
+    // find dancers coordinates
+    // define accumulator to high number
+    var shortestDistance = 3000;
+    // define index as 0 by default
+    var index = 0;
+    // iterate over all dancers
+    for (var i = 0; i<window.dancers.length; i++) {
+      var neighbor = window.dancers[i].$node;
+      var y1 = dancer.css('top').slice(0,8);
+      var x1 = dancer.css('left').slice(0,8);
+      var y2 = neighbor.css('top').slice(0,8);
+      var x2 = neighbor.css('left').slice(0,8);
+      // calculate distance from dancer
+      // a2 + b2 = c2
+      var distanceX = Math.pow((x2-x1), 2);
+      var distanceY = Math.pow((y2-y1), 2);
+      var distance = Math.pow(distanceX+distanceY, 0.5);
+      // if distance < accumulator AND distance > 0
+      if (distance < shortestDistance && distance > 0) {
+        shortestDistance = distance;
+        index = i;
+      }
+    }
+
+    // tase nearest neighbor
+    window.dancers[index].$node.remove();
+    window.dancers.splice(index, 1);
+  };
+
+  // jQuery event delegation options:
+  // 1) attach the event when the element is added to the dom
+  // 2) use event delegation (best option)
+    // capturing happens first   window >to> element
+    // bubbling happens next    element >to> window
+
+  $("body").on("mouseover", ".dancer", function() {
+    $(this).addClass( "hover" );
   });
 
   // $(".winky").hover(

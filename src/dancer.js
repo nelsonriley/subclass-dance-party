@@ -17,7 +17,7 @@ Dancer.prototype.step = function(){
   // it just schedules the next step//setTimeout.bind(this, makeBlinkyDancer);
 
   var blinkyStep = this.step.bind(this);
-  setTimeout(blinkyStep, this.timeBetweenSteps);
+  //setTimeout(blinkyStep, this.timeBetweenSteps);
 };
 
 Dancer.prototype.setPosition = function(top, left){
