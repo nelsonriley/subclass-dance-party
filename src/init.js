@@ -29,6 +29,7 @@ $(document).ready(function(){
         // localStorge
         // screen / availHeight + availWidth
         // lots provided by webkit: speechRecognition, SVG handlers
+
     var dancerMakerFunction = window[dancerMakerFunctionName];
 
     // make a dancer with a random position
@@ -40,6 +41,8 @@ $(document).ready(function(){
     );
 
     $('body').append(dancer.$node);
+
+    dancer.circle();
 
     window.dancers.push(dancer);
 
@@ -59,6 +62,15 @@ $(document).ready(function(){
   $(".taseNeighborButton").on("click", function() {
     findNeighbor(window.dancers[0]);
   });
+
+  var screenCenter = function(){
+    var yCoord = $('body').height() / 2;
+    var xCoord = $('body').width() /2;
+
+    return {x: xCoord, y: yCoord};
+  };
+
+  window.screenCenter = screenCenter;
 
   var findNeighbor = function(dancer) {
     var dancer = dancer.$node;
